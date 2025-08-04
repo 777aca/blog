@@ -1,0 +1,8 @@
+@import url("https://font.sec.miui.com/font/css?family=MiSans:400,450:Chinese_Simplify,Latin&display=swap");
+
+*:not([class*="icon"]):not(i) {
+    font-family: "MiSans" !important;
+}
+
+@import "tailwindcss";
+@import "@nuxt/ui";
