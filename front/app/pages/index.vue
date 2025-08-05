@@ -7,6 +7,18 @@
       <p>
         Hey! I’m Joker Chor, a fanatical open sourceror and design engineer.
       </p>
+      <p>
+        Hey! I’m Joker Chor, a fanatical open sourceror and design engineer.
+      </p>
+      <p>
+        Hey! I’m Joker Chor, a fanatical open sourceror and design engineer.
+      </p>
+      <p>
+        Hey! I’m Joker Chor, a fanatical open sourceror and design engineer.
+      </p>
+      <p>
+        Hey! I’m Joker Chor, a fanatical open sourceror and design engineer.
+      </p>
     </div>
   </div>
 </template>

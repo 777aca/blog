@@ -1,0 +1,31 @@
+// constants/enums.js
+const ROLES = {
+  USER: "USER",
+  ADMIN: "ADMIN",
+  MODERATOR: "MODERATOR",
+};
+
+const USER_STATUS = {
+  ACTIVE: "ACTIVE",
+  INACTIVE: "INACTIVE",
+  BANNED: "BANNED",
+};
+
+const ARTICLE_STATUS = {
+  DRAFT: "DRAFT",
+  PUBLISHED: "PUBLISHED",
+  ARCHIVED: "ARCHIVED",
+};
+
+const COMMENT_STATUS = {
+  PENDING: "PENDING",
+  APPROVED: "APPROVED",
+  REJECTED: "REJECTED",
+};
+
+module.exports = {
+  ROLES,
+  USER_STATUS,
+  ARTICLE_STATUS,
+  COMMENT_STATUS,
+};

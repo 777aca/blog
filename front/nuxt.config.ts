@@ -1,9 +1,16 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  // 我的 Nuxt 配置
+  devServer: {
+    port: 3000,
+  },
+  runtimeConfig: {
+    public: {
+      apiBase: "http://localhost:8000/api",
+    },
+  },
   app: {
     head: {
-      title: "JokerChor",
+      title: "Joker Chor",
       meta: [
         {
           name: "author",
@@ -31,13 +38,6 @@ export default defineNuxtConfig({
   ui: {
     fonts: false,
   },
-  compatibilityDate: "2025-07-15",
   devtools: { enabled: true },
   modules: ["@nuxt/eslint", "@nuxt/ui"],
-  $development: {
-    // 开发环境配置
-  },
-  $production: {
-    // 生产环境配置
-  },
 });

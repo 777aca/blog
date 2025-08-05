@@ -1,0 +1,88 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+    provider = "prisma-client-js"
+}
+
+datasource db {
+    provider = "sqlite" // 可选: "postgresql", "sqlite"
+    url      = env("DATABASE_URL")
+}
+
+model User {
+    id            Int      @id @default(autoincrement())
+    email         String   @unique
+    username      String   @unique
+    password      String
+    nickname      String?
+    avatar        String?
+    bio           String?  @default("")
+    role          String   @default("USER") // 改为字符串类型
+    status        String   @default("ACTIVE") // 改为字符串类型
+    emailVerified Boolean  @default(false)
+    created_at    DateTime @default(now()) @map("created_at")
+    updated_at    DateTime @default(now()) @map("updated_at")
+
+    @@map("users")
+}
+
+model Category {
+    id         Int      @id @default(autoincrement())
+    name       String   @unique
+    cover      String?
+    sort       Int      @default(0)
+    created_at DateTime @default(now())
+    updated_at DateTime @default(now())
+
+    @@map("categories")
+}
+
+model Tag {
+    id         Int      @id @default(autoincrement())
+    name       String   @unique @default("默认")
+    slug       String   @unique @default("1")
+    color      String?  @default("#6366f1")
+    created_at DateTime @default(now())
+    updated_at DateTime @default(now())
+
+    // 关联关系
+    articles ArticleTag[]
+
+    @@map("tags")
+}
+
+model Article {
+    id         Int       @id @default(autoincrement())
+    title      String
+    content    String    @default("")
+    cover      String?
+    status     String    @default("DRAFT") // 改为字符串类型
+    published  Boolean   @default(false)
+    publish_at DateTime?
+    likes      Int       @default(0)
+    views      Int       @default(0)
+    created_at DateTime  @default(now()) @map("created_at")
+    updated_at DateTime  @default(now()) @map("updated_at")
+
+    tags ArticleTag[]
+
+    @@map("articles")
+}
+
+model ArticleTag {
+    articleId Int
+    tagId     Int
+
+    article Article @relation(fields: [articleId], references: [id], onDelete: Cascade)
+    tag     Tag     @relation(fields: [tagId], references: [id], onDelete: Cascade)
+
+    @@id([articleId, tagId])
+    @@map("article_tags")
+}
+
+// 在 SQLite 中，我们可以通过注释来记录可用的值
+// Role 可选值: "USER", "ADMIN", "MODERATOR"
+// UserStatus 可选值: "ACTIVE", "INACTIVE", "BANNED"
+// ArticleStatus 可选值: "DRAFT", "PUBLISHED", "ARCHIVED"
+// CommentStatus 可选值: "PENDING", "APPROVED", "REJECTED"

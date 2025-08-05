@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <div class="flex flex-col min-h-screen">
     <AppHeader />
-    <article class="flex flex-col items-center w-3xl mx-auto">
+    <article class="flex flex-col w-3xl mx-auto flex-1 pb-30 pt-30">
       <NuxtPage />
     </article>
     <AppFooter />
