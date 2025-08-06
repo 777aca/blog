@@ -1,28 +1,29 @@
-// https://nuxt.com/docs/api/configuration/nuxt-config
+import config from "./config";
+
 export default defineNuxtConfig({
   devServer: {
     port: 3000,
   },
   runtimeConfig: {
     public: {
-      apiBase: "http://localhost:8000/api",
+      apiBase: process.env.NUXT_PUBLIC_API_BASE,
     },
   },
   app: {
     head: {
-      title: "Joker Chor",
+      title: config.title,
       meta: [
         {
           name: "author",
-          content: "JokerChor",
+          content: config.author,
         },
         {
           name: "description",
-          content: "用追马的时间去种草。",
+          content: config.description,
         },
         {
           name: "keywords",
-          content: "JokerChor, 阿楚, chor, Nuxt, Vue, 前端开发, 种草",
+          content: config.keywords,
         },
       ],
       link: [

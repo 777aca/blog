@@ -5,7 +5,7 @@
         v-for="item in articleList"
         :key="item.id"
         :to="'/posts/' + item.id"
-        class="mb-30 block"
+        class="mb-20 block"
       >
         <h1 class="text-xl font-bold">{{ item.title }}</h1>
         <p class="text-sm ml-10">
@@ -20,22 +20,12 @@
 </template>
 <script lang="ts" setup>
 import { getArticle } from "~/api";
-import type { Article } from "~/types/article";
 
 useHead({
   title: "Blog - Joker Chor",
 });
 
-const articleList = ref<Article[]>([]);
-const getArticleList = async () => {
-  const res = await getArticle({});
-  console.log(res);
-  articleList.value = res.data;
-};
-
-onMounted(() => {
-  getArticleList();
-});
+const { data: articleList } = await getArticle({});
 </script>
 
 <style></style>

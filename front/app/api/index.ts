@@ -1,4 +1,4 @@
-import http from "~/server";
+import http from "./http";
 
 // 获取文章
 export const getArticle = (params) => http.get("/articles", { params });

@@ -6,17 +6,12 @@
 </template>
 
 <script setup lang="ts">
-import type { Article } from "~/types/article";
 import { getArticleById } from "~/api";
 const route = useRoute();
+
+const { data: post } = await getArticleById(route.params.id as string);
+
 useHead({
-  title: "Blog - Joker Chor",
-});
-
-const post = ref<Article>({});
-
-onMounted(async () => {
-  const { data } = await getArticleById(route.params.id as string);
-  post.value = data;
+  title: `${post.title} - Joker Chor`,
 });
 </script>
