@@ -6,7 +6,7 @@
     </div>
 
     <div v-for="(yearGroup, year) in groupedArticles" :key="year" class="mt-30 relative">
-      <div class="text-8xl font-bold text-gray-100 opacity-80 mb-6 absolute z-0 -top-10">{{ year }}</div>
+      <div class="text-8xl font-bold text-transparent mb-6 absolute z-0 -top-15 year">{{ year }}</div>
       
       <ul class="space-y-6 relative z-1">
         <li v-for="article in yearGroup" :key="article.id" class="group">
@@ -83,5 +83,10 @@ const estimateReadingTime = (content: string) => {
 <style scoped>
 .text-primary-500 {
   color: #3b82f6;
+}
+
+.year {
+  -webkit-text-stroke-color: rgb(170 170 170 / 10%);
+  -webkit-text-stroke-width: 2px;
 }
 </style>
