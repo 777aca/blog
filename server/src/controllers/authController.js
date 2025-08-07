@@ -1,87 +1,8 @@
 const bcrypt = require("bcryptjs");
 const { prisma } = require("../utils/db");
 const { generateTokens, verifyRefreshToken } = require("../utils/jwt");
-const { ROLES, USER_STATUS } = require("./enums");
+const {  USER_STATUS } = require("./enums");
 
-/**
- * 用户注册
- */
-const register = async (req, res) => {
-  try {
-    const { email, username, password, nickname } = req.body;
-
-    // 检查用户是否已存在
-    const existingUser = await prisma.user.findFirst({
-      where: {
-        OR: [
-          { email: email.toLowerCase() },
-          { username: username.toLowerCase() },
-        ],
-      },
-    });
-
-    if (existingUser) {
-      const field =
-        existingUser.email === email.toLowerCase() ? "email" : "username";
-      return res.status(400).json({
-        success: false,
-        message: `User with this ${field} already exists`,
-        code: "USER_EXISTS",
-        field,
-      });
-    }
-
-    // 密码加密
-    const saltRounds = 12;
-    const hashedPassword = await bcrypt.hash(password, saltRounds);
-
-    // 创建用户
-    const user = await prisma.user.create({
-      data: {
-        email: email.toLowerCase(),
-        username: username.toLowerCase(),
-        password: hashedPassword,
-        nickname: nickname || username,
-        role: ROLES.USER,
-        status: USER_STATUS.ACTIVE,
-        emailVerified: false,
-      },
-      select: {
-        id: true,
-        email: true,
-        username: true,
-        nickname: true,
-        avatar: true,
-        role: true,
-        status: true,
-        emailVerified: true,
-        created_at: true,
-      },
-    });
-
-    // 生成令牌
-    const tokens = generateTokens(user);
-
-    // 记录注册日志
-    console.log(`New user registered: ${user.email} (ID: ${user.id})`);
-
-    res.status(201).json({
-      success: true,
-      message: "User registered successfully",
-      data: {
-        user,
-        ...tokens,
-      },
-    });
-  } catch (error) {
-    console.error("Register error:", error);
-    res.status(500).json({
-      success: false,
-      message: "Internal server error during registration",
-      code: "REGISTRATION_ERROR",
-    });
-  }
-};
 
 /**
  * 用户登录
@@ -444,7 +365,6 @@ const logout = async (req, res) => {
 };
 
 module.exports = {
-  register,
   login,
   refreshToken,
   getProfile,

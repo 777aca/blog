@@ -26,8 +26,9 @@ const getArticles = async (req, res) => {
             include: { tag: true },
           },
         },
-        orderBy: { publish_at: "desc" },
+        orderBy: { created_at: "desc" },
         skip: parseInt(skip),
+        take: parseInt(size),
       }),
       prisma.article.count({ where }),
     ]);
